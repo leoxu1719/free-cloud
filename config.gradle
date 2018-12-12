@@ -1,0 +1,8 @@
+
+ext{
+    dependenciesVersion=[
+            springBootVersion: '2.0.5.RELEASE',
+           spring_cloud_version : 'Finchley.RELEASE'
+    ]
+
+}
