@@ -65,6 +65,11 @@ subprojects{
     }
 }
 
+project(':config-center'){
+    dependencies{
+        compile 'org.springframework.cloud:spring-cloud-config-server'
+    }
+}
 
 project(':registry-center'){
 
