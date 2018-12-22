@@ -43,7 +43,12 @@ allprojects {
     dependencies{
         compile 'org.springframework.boot:spring-boot-starter-parent:2.0.5.RELEASE'
         compile 'org.springframework.boot:spring-boot-starter-actuator:2.0.5.RELEASE'
+        compile 'org.springframework.boot:spring-boot-starter-web:2.0.5.RELEASE'
         //compile 'org.springframework.cloud:spring-cloud-dependencies:Finchley.RELEASE'
+
+
+        compile 'io.springfox:springfox-swagger2:2.7.0'
+        compile 'io.springfox:springfox-swagger-ui:2.7.0'
     }
 }
 
@@ -60,6 +65,12 @@ subprojects{
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         }
     }
+
+    dependencies{
+        compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+        compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    }
+
     jar {
         manifest.attributes provider: 'gradle'
     }
@@ -74,8 +85,18 @@ project(':config-center'){
 project(':registry-center'){
 
     dependencies{
-        compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+//        compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+//        compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+        compile 'org.springframework.cloud:spring-cloud-starter-config'
+    }
+}
+
+project(':user-center'){
+
+    dependencies{
         compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+        compile 'org.springframework.cloud:spring-cloud-starter-config'
+        //compile 'org.springframework.boot:spring-boot-starter-tomcat'
     }
 }
 

@@ -1,3 +1,5 @@
 rootProject.name = 'free-cloud'
 include 'config-center'
 include 'registry-center'
+include 'user-center'
+
