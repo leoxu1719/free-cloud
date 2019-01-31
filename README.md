@@ -13,4 +13,4 @@ The Personal Spring Cloud apps based on Spring Boot 2.0
 
 * `2018-12-12` free-cloud built and initialized
 * `2019-01-24` configuration could be refreshed by config-center
-  
+* `2019-01-31` log4j2 replace of logback  

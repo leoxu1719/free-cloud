@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "Propertites Controller", tags = {"配置检测接口"})
 public class PropertiesController {
 
-    //@Value("${spring.cloud.config.server.default-label}")
+    @Value("${spring.cloud.config.server.default-label}")
     private String label;
 
     @Value("${title}")
