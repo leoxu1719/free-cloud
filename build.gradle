@@ -12,7 +12,11 @@ buildscript{
 
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        jcenter()
+        //jcenter()
+        jcenter{
+            name = "jcenter-snapshots"
+            artifactUrls = ["http://oss.jfrog.org/artifactory/oss-snapshot-local/"]
+        }
         mavenCentral()
     }
     dependencies {
@@ -23,7 +27,7 @@ buildscript{
 
 
 dependencies {
-    //testCompile group: 'junit', name: 'junit', version: '4.12'
+    //compile group: 'junit', name: 'junit', version: '4.12'
 }
 
 
@@ -33,8 +37,13 @@ allprojects {
     group 'com.free'
     version '1.0-SNAPSHOT'
     repositories {
-        mavenCentral()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         jcenter()
+//        jcenter{
+//            name = "jcenter-snapshots"
+//            artifactUrls = ["http://oss.jfrog.org/artifactory/oss-snapshot-local/"]
+//        }
+        mavenCentral()
     }
 
 
@@ -46,13 +55,13 @@ allprojects {
     dependencies{
         compile "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
         compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
-        compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+        //compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 
 
         compile 'org.springframework.boot:spring-boot-starter-log4j2:2.1.2.RELEASE'
-        compile 'io.springfox:springfox-swagger2:2.7.0'
-        compile 'io.springfox:springfox-swagger-ui:2.7.0'
 
+        compile 'io.projectreactor:reactor-core:3.1.9.RELEASE'
+        testCompile "junit:junit:4.12"
     }
 }
 
@@ -78,18 +87,29 @@ subprojects{
         imports {
             //spring bom helps us to declare dependencies without specifying version numbers.
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+            mavenBom "io.projectreactor:reactor-bom:Californium-SR8"
         }
     }
 
     dependencies{
         compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
         compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+        compile 'org.springframework.boot:spring-boot-starter-webflux'
+        compile 'org.projectlombok:lombok:1.18.6'
+
+        //compile 'io.springfox:springfox-spring-webflux:2.9.2'
+        compile 'io.springfox:springfox-swagger-ui:2.9.2'
+        compile 'io.springfox:springfox-swagger2:2.9.2'
+
+        compile 'io.projectreactor:reactor-core'
+        testCompile 'io.projectreactor:reactor-test'
     }
 
     jar {
         manifest.attributes provider: 'gradle'
     }
 }
+
 
 project(':config-center'){
 
@@ -98,8 +118,8 @@ project(':config-center'){
         compile 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
         compile 'org.springframework.cloud:spring-cloud-config-monitor'
     }
-
 }
+
 
 project(':registry-center'){
 
@@ -117,4 +137,8 @@ project(':user-center'){
     }
 }
 
-
+project(':gateway-center'){
+    dependencies{
+        compile 'org.springframework.cloud:spring-cloud-starter-zuul:1.4.6.RELEASE'
+    }
+}
